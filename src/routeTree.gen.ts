@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as StatsRouteImport } from './routes/stats'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const TasksRoute = TasksRouteImport.update({
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
   path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FocusRoute = FocusRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/profile': typeof ProfileRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/profile': typeof ProfileRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
@@ -51,20 +59,22 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/profile': typeof ProfileRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/focus' | '/stats' | '/tasks'
+  fullPaths: '/' | '/focus' | '/profile' | '/stats' | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/focus' | '/stats' | '/tasks'
-  id: '__root__' | '/' | '/focus' | '/stats' | '/tasks'
+  to: '/' | '/focus' | '/profile' | '/stats' | '/tasks'
+  id: '__root__' | '/' | '/focus' | '/profile' | '/stats' | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FocusRoute: typeof FocusRoute
+  ProfileRoute: typeof ProfileRoute
   StatsRoute: typeof StatsRoute
   TasksRoute: typeof TasksRoute
 }
@@ -83,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/stats'
       fullPath: '/stats'
       preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/focus': {
@@ -105,6 +122,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FocusRoute: FocusRoute,
+  ProfileRoute: ProfileRoute,
   StatsRoute: StatsRoute,
   TasksRoute: TasksRoute,
 }
