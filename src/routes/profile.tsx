@@ -24,12 +24,16 @@ function Profile() {
   const handleLogout = () => { signOut(); navigate({ to: "/login" }); };
   return (
     <MobileFrame>
-      <div className="bg-gradient-purple text-white pb-8 rounded-b-[2rem]">
+      <div className="bg-gradient-purple text-white pb-8 rounded-b-[2rem] shadow-button">
         <div className="px-6 pt-8">
-          <h1 className="text-2xl font-bold">Profile</h1>
+          <h1 className="text-2xl font-bold animate-slide-up">Profile</h1>
           <div className="flex flex-col items-center mt-4">
-            <div className="h-24 w-24 rounded-full bg-white/20 backdrop-blur border-4 border-white/30 flex items-center justify-center overflow-hidden">
-              <User className="h-12 w-12 text-white" />
+            <div className="h-24 w-24 rounded-full bg-white/20 backdrop-blur border-4 border-white/30 flex items-center justify-center overflow-hidden animate-pop">
+              {user?.avatar ? (
+                <img src={user.avatar} alt="Profile" className="h-full w-full object-cover" />
+              ) : (
+                <User className="h-12 w-12 text-white" />
+              )}
             </div>
             <p className="mt-3 text-lg font-semibold">{user?.name ?? "Guest"}</p>
             <p className="text-xs text-white/70">{user?.email}</p>
@@ -37,7 +41,7 @@ function Profile() {
         </div>
       </div>
 
-      <div className="flex-1 px-6 pt-6 pb-6 overflow-y-auto">
+      <div className="flex-1 px-6 pt-6 pb-6 overflow-y-auto stagger">
         <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60 flex items-center justify-between mb-6">
           <div>
             <p className="text-xs text-muted-foreground flex items-center gap-1"><Flame className="h-3 w-3 text-primary" /> Focus Streak</p>
