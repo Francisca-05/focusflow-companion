@@ -2,7 +2,8 @@ import { createContext, useContext, useEffect, useState, ReactNode, useCallback 
 
 export type Task = { id: string; title: string; duration: number; done: boolean; createdAt: number };
 export type Session = { id: string; date: string; minutes: number };
-export type User = { name: string; email: string };
+export type User = { name: string; email: string; avatar?: string };
+export type Account = { name: string; email: string; password: string; avatar?: string };
 export type Settings = {
   notifications: boolean;
   sound: boolean;
@@ -14,6 +15,7 @@ export type Settings = {
 
 type State = {
   user: User | null;
+  accounts: Account[];
   tasks: Task[];
   sessions: Session[];
   settings: Settings;
@@ -21,8 +23,11 @@ type State = {
 };
 
 type Ctx = State & {
-  signIn: (u: User) => void;
+  signIn: (email: string, password: string) => { ok: boolean; error?: string };
+  signUp: (name: string, email: string, password: string) => { ok: boolean; error?: string };
   signOut: () => void;
+  updateProfile: (p: Partial<User>) => void;
+  resetPassword: (email: string, newPassword: string) => { ok: boolean; error?: string };
   addTask: (title: string, duration: number) => void;
   toggleTask: (id: string) => void;
   removeTask: (id: string) => void;
@@ -41,7 +46,7 @@ const defaultSettings: Settings = {
   reminderTime: "09:00",
   remindersEnabled: true,
 };
-const initial: State = { user: null, tasks: [], sessions: [], settings: defaultSettings, streak: 0 };
+const initial: State = { user: null, accounts: [], tasks: [], sessions: [], settings: defaultSettings, streak: 0 };
 
 const StoreCtx = createContext<Ctx | null>(null);
 
@@ -63,8 +68,41 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     if (hydrated) localStorage.setItem(KEY, JSON.stringify(state));
   }, [state, hydrated]);
 
-  const signIn = (user: User) => setState((s) => ({ ...s, user }));
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.classList.toggle("dark", !!state.settings.darkMode);
+  }, [state.settings.darkMode]);
+
+  const signIn: Ctx["signIn"] = (email, password) => {
+    const acc = state.accounts.find((a) => a.email.toLowerCase() === email.toLowerCase());
+    if (!acc) return { ok: false, error: "No account found for this email. Please sign up first." };
+    if (acc.password !== password) return { ok: false, error: "Incorrect password." };
+    setState((s) => ({ ...s, user: { name: acc.name, email: acc.email, avatar: acc.avatar } }));
+    return { ok: true };
+  };
+  const signUp: Ctx["signUp"] = (name, email, password) => {
+    if (!name.trim() || !email.trim() || !password) return { ok: false, error: "All fields are required." };
+    const exists = state.accounts.some((a) => a.email.toLowerCase() === email.toLowerCase());
+    if (exists) return { ok: false, error: "An account with this email already exists." };
+    const acc: Account = { name: name.trim(), email: email.trim(), password };
+    setState((s) => ({ ...s, accounts: [...s.accounts, acc], user: { name: acc.name, email: acc.email } }));
+    return { ok: true };
+  };
   const signOut = () => setState((s) => ({ ...s, user: null }));
+  const updateProfile: Ctx["updateProfile"] = (p) =>
+    setState((s) => {
+      if (!s.user) return s;
+      const user = { ...s.user, ...p };
+      const accounts = s.accounts.map((a) => a.email === s.user!.email ? { ...a, name: user.name, avatar: user.avatar } : a);
+      return { ...s, user, accounts };
+    });
+  const resetPassword: Ctx["resetPassword"] = (email, newPassword) => {
+    const exists = state.accounts.some((a) => a.email.toLowerCase() === email.toLowerCase());
+    if (!exists) return { ok: false, error: "No account found for this email." };
+    if (!newPassword || newPassword.length < 4) return { ok: false, error: "Password must be at least 4 characters." };
+    setState((s) => ({ ...s, accounts: s.accounts.map((a) => a.email.toLowerCase() === email.toLowerCase() ? { ...a, password: newPassword } : a) }));
+    return { ok: true };
+  };
   const addTask = (title: string, duration: number) =>
     setState((s) => ({ ...s, tasks: [{ id: crypto.randomUUID(), title, duration, done: false, createdAt: Date.now() }, ...s.tasks] }));
   const toggleTask = (id: string) =>
@@ -96,7 +134,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   }, [state.sessions]);
 
   return (
-    <StoreCtx.Provider value={{ ...state, signIn, signOut, addTask, toggleTask, removeTask, addSession, updateSettings, todayMinutes, weeklyMinutes }}>
+    <StoreCtx.Provider value={{ ...state, signIn, signUp, signOut, updateProfile, resetPassword, addTask, toggleTask, removeTask, addSession, updateSettings, todayMinutes, weeklyMinutes }}>
       {children}
     </StoreCtx.Provider>
   );
