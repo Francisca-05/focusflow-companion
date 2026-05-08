@@ -45,11 +45,11 @@
   --card-foreground: oklch(0.18 0.04 285);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.04 285);
-  --primary: oklch(0.5 0.22 295);
+  --primary: oklch(0.46 0.26 295);
   --primary-foreground: oklch(0.99 0 0);
-  --primary-soft: oklch(0.92 0.05 300);
-  --primary-deep: oklch(0.32 0.18 295);
-  --lavender: oklch(0.88 0.06 300);
+  --primary-soft: oklch(0.93 0.06 300);
+  --primary-deep: oklch(0.26 0.18 295);
+  --lavender: oklch(0.86 0.08 300);
   --secondary: oklch(0.95 0.02 300);
   --secondary-foreground: oklch(0.25 0.08 295);
   --muted: oklch(0.96 0.01 300);
@@ -60,14 +60,39 @@
   --destructive-foreground: oklch(0.99 0 0);
   --border: oklch(0.92 0.015 300);
   --input: oklch(0.92 0.015 300);
-  --ring: oklch(0.5 0.22 295);
+  --ring: oklch(0.46 0.26 295);
 
-  --gradient-purple: linear-gradient(160deg, oklch(0.55 0.22 295) 0%, oklch(0.28 0.16 295) 100%);
-  --gradient-purple-soft: linear-gradient(160deg, oklch(0.95 0.04 300) 0%, oklch(0.88 0.07 300) 100%);
-  --gradient-button: linear-gradient(135deg, oklch(0.55 0.22 295) 0%, oklch(0.42 0.2 295) 100%);
-  --shadow-card: 0 4px 16px -6px oklch(0.5 0.22 295 / 0.12);
-  --shadow-button: 0 8px 20px -8px oklch(0.5 0.22 295 / 0.5);
-  --shadow-soft: 0 2px 10px -4px oklch(0.5 0.1 295 / 0.1);
+  --gradient-purple: linear-gradient(155deg, oklch(0.62 0.24 305) 0%, oklch(0.45 0.27 295) 45%, oklch(0.22 0.18 290) 100%);
+  --gradient-purple-soft: linear-gradient(160deg, oklch(0.96 0.04 300) 0%, oklch(0.88 0.08 300) 100%);
+  --gradient-button: linear-gradient(135deg, oklch(0.62 0.24 305) 0%, oklch(0.42 0.24 295) 100%);
+  --shadow-card: 0 6px 22px -8px oklch(0.46 0.26 295 / 0.18);
+  --shadow-button: 0 10px 26px -8px oklch(0.46 0.26 295 / 0.55);
+  --shadow-soft: 0 2px 12px -4px oklch(0.46 0.18 295 / 0.12);
+}
+
+.dark {
+  --background: oklch(0.16 0.03 290);
+  --foreground: oklch(0.97 0.01 300);
+  --surface: oklch(0.2 0.04 290);
+  --card: oklch(0.22 0.05 290);
+  --card-foreground: oklch(0.97 0.01 300);
+  --popover: oklch(0.22 0.05 290);
+  --popover-foreground: oklch(0.97 0.01 300);
+  --primary: oklch(0.7 0.22 300);
+  --primary-foreground: oklch(0.15 0.04 290);
+  --primary-soft: oklch(0.32 0.12 295);
+  --primary-deep: oklch(0.18 0.1 295);
+  --lavender: oklch(0.35 0.1 295);
+  --secondary: oklch(0.26 0.05 290);
+  --secondary-foreground: oklch(0.95 0.02 300);
+  --muted: oklch(0.26 0.04 290);
+  --muted-foreground: oklch(0.72 0.04 295);
+  --accent: oklch(0.32 0.12 295);
+  --accent-foreground: oklch(0.95 0.02 300);
+  --border: oklch(0.32 0.04 290);
+  --input: oklch(0.32 0.04 290);
+  --ring: oklch(0.7 0.22 300);
+  --gradient-purple-soft: linear-gradient(160deg, oklch(0.22 0.06 295) 0%, oklch(0.16 0.05 290) 100%);
 }
 
 @layer base {
@@ -83,4 +108,54 @@
   .shadow-card { box-shadow: var(--shadow-card); }
   .shadow-button { box-shadow: var(--shadow-button); }
   .shadow-soft { box-shadow: var(--shadow-soft); }
+  .text-shimmer {
+    background: linear-gradient(90deg, var(--primary) 0%, oklch(0.75 0.2 320) 50%, var(--primary) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 3s linear infinite;
+  }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+  .animate-pop { animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  .animate-slide-up { animation: slide-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .animate-fade-in { animation: fade-in 0.4s ease-out both; }
+  .animate-glow { animation: glow 2.4s ease-in-out infinite; }
+  .stagger > * { opacity: 0; animation: slide-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .stagger > *:nth-child(1) { animation-delay: 0.04s; }
+  .stagger > *:nth-child(2) { animation-delay: 0.10s; }
+  .stagger > *:nth-child(3) { animation-delay: 0.16s; }
+  .stagger > *:nth-child(4) { animation-delay: 0.22s; }
+  .stagger > *:nth-child(5) { animation-delay: 0.28s; }
+  .stagger > *:nth-child(6) { animation-delay: 0.34s; }
+  .stagger > *:nth-child(7) { animation-delay: 0.40s; }
+  .stagger > *:nth-child(8) { animation-delay: 0.46s; }
+  .press { transition: transform 0.15s ease; }
+  .press:active { transform: scale(0.96); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  60% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 0 oklch(0.7 0.25 300 / 0.5); }
+  50% { box-shadow: 0 0 0 14px oklch(0.7 0.25 300 / 0); }
 }
