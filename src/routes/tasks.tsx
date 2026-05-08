@@ -34,51 +34,55 @@ function Tasks() {
 
   return (
     <MobileFrame>
-      <div className="flex-1 px-6 pb-6 overflow-y-auto relative">
-        <h1 className="text-2xl font-bold tracking-tight pt-8 pb-5">Tasks</h1>
+      <div className="flex-1 px-6 pb-32 overflow-y-auto relative">
+        <h1 className="text-2xl font-bold tracking-tight pt-8 pb-5 animate-slide-up">Tasks</h1>
         <div className="flex gap-2 bg-secondary rounded-2xl p-1.5 mb-6">
           {(["Today", "Upcoming", "Completed"] as Tab[]).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex-1 text-sm font-semibold py-2 rounded-xl transition-all ${
-                tab === t ? "bg-card text-primary shadow-soft" : "text-muted-foreground"
+              className={`flex-1 text-sm font-semibold py-2 rounded-xl transition-all duration-300 press ${
+                tab === t ? "bg-card text-primary shadow-card scale-[1.02]" : "text-muted-foreground"
               }`}
             >
               {t}
             </button>
           ))}
         </div>
-        <div className="space-y-3">
+        <div className="space-y-3 stagger" key={tab}>
           {visible.length === 0 ? (
-            <p className="text-center text-muted-foreground text-sm py-12">No tasks yet — tap + to add one.</p>
+            <p className="text-center text-muted-foreground text-sm py-12 animate-fade-in">No tasks yet — tap + to add one.</p>
           ) : (
             visible.map((t) => (
-              <div key={t.id} className="w-full bg-card rounded-2xl p-4 shadow-soft border border-border/60 flex items-center gap-3">
+              <div key={t.id} className="w-full bg-card rounded-2xl p-4 shadow-soft border border-border/60 flex items-center gap-3 hover:shadow-card transition-all duration-300">
                 <button onClick={() => toggleTask(t.id)} className="flex items-center gap-3 flex-1 text-left active:scale-[0.99] transition-transform">
-                  <span className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all ${t.done ? "bg-primary border-primary" : "border-border"}`}>
-                    {t.done && <Check className="h-3.5 w-3.5 text-primary-foreground" strokeWidth={3} />}
+                  <span className={`h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all duration-300 ${t.done ? "bg-gradient-button border-primary scale-110" : "border-border"}`}>
+                    {t.done && <Check className="h-3.5 w-3.5 text-primary-foreground animate-pop" strokeWidth={3} />}
                   </span>
                   <span className={`flex-1 text-sm font-medium ${t.done ? "line-through text-muted-foreground" : ""}`}>{t.title}</span>
                   <span className="text-xs text-muted-foreground font-medium">{t.duration}m</span>
                 </button>
-                <button onClick={() => removeTask(t.id)} className="text-muted-foreground hover:text-destructive transition-colors">
+                <button onClick={() => removeTask(t.id)} className="text-muted-foreground hover:text-destructive hover:scale-110 transition-all press">
                   <Trash2 className="h-4 w-4" />
                 </button>
               </div>
             ))
           )}
         </div>
-        <button onClick={() => setOpen(true)} aria-label="Add task" className="fixed sm:absolute bottom-24 sm:bottom-6 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-95 transition-transform z-40">
-          <Plus className="h-6 w-6" strokeWidth={2.5} />
-        </button>
       </div>
+      <button
+        onClick={() => setOpen(true)}
+        aria-label="Add task"
+        className="absolute bottom-24 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 transition-transform z-40 animate-glow"
+      >
+        <Plus className="h-6 w-6" strokeWidth={2.5} />
+      </button>
       {open && (
-        <div className="fixed inset-0 z-50 bg-black/40 flex items-end sm:items-center justify-center" onClick={() => setOpen(false)}>
-          <div className="bg-card w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 space-y-4 animate-in slide-in-from-bottom" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center animate-fade-in" onClick={() => setOpen(false)}>
+          <div className="bg-card w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 space-y-4 animate-slide-up shadow-2xl" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-bold">New Task</h3>
-              <button onClick={() => setOpen(false)}><X className="h-5 w-5" /></button>
+              <button onClick={() => setOpen(false)} className="press h-9 w-9 rounded-full bg-muted flex items-center justify-center"><X className="h-5 w-5" /></button>
             </div>
             <input
               autoFocus
@@ -88,7 +92,7 @@ function Tasks() {
               className="w-full px-4 py-3 rounded-2xl border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary"
             />
             <div>
-              <label className="text-xs text-muted-foreground">Duration: {duration} min</label>
+              <label className="text-xs text-muted-foreground">Duration: <span className="text-primary font-bold">{duration} min</span></label>
               <input type="range" min={5} max={120} step={5} value={duration} onChange={(e) => setDuration(+e.target.value)} className="w-full mt-2 accent-primary" />
             </div>
             <button onClick={submit} className="w-full bg-gradient-button text-primary-foreground font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform">
