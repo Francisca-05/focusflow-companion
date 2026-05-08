@@ -11,8 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as StatsRouteImport } from './routes/stats'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as RemindersRouteImport } from './routes/reminders'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as HelpRouteImport } from './routes/help'
 import { Route as FocusRouteImport } from './routes/focus'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -26,14 +30,34 @@ const StatsRoute = StatsRouteImport.update({
   path: '/stats',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RemindersRoute = RemindersRouteImport.update({
+  id: '/reminders',
+  path: '/reminders',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HelpRoute = HelpRouteImport.update({
+  id: '/help',
+  path: '/help',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FocusRoute = FocusRouteImport.update({
@@ -50,16 +74,24 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/help': typeof HelpRoute
   '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reminders': typeof RemindersRoute
+  '/settings': typeof SettingsRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/help': typeof HelpRoute
   '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reminders': typeof RemindersRoute
+  '/settings': typeof SettingsRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
@@ -67,24 +99,63 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/focus': typeof FocusRoute
+  '/help': typeof HelpRoute
   '/home': typeof HomeRoute
+  '/login': typeof LoginRoute
   '/profile': typeof ProfileRoute
+  '/reminders': typeof RemindersRoute
+  '/settings': typeof SettingsRoute
   '/stats': typeof StatsRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/focus' | '/home' | '/profile' | '/stats' | '/tasks'
+  fullPaths:
+    | '/'
+    | '/focus'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/profile'
+    | '/reminders'
+    | '/settings'
+    | '/stats'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/focus' | '/home' | '/profile' | '/stats' | '/tasks'
-  id: '__root__' | '/' | '/focus' | '/home' | '/profile' | '/stats' | '/tasks'
+  to:
+    | '/'
+    | '/focus'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/profile'
+    | '/reminders'
+    | '/settings'
+    | '/stats'
+    | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/focus'
+    | '/help'
+    | '/home'
+    | '/login'
+    | '/profile'
+    | '/reminders'
+    | '/settings'
+    | '/stats'
+    | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FocusRoute: typeof FocusRoute
+  HelpRoute: typeof HelpRoute
   HomeRoute: typeof HomeRoute
+  LoginRoute: typeof LoginRoute
   ProfileRoute: typeof ProfileRoute
+  RemindersRoute: typeof RemindersRoute
+  SettingsRoute: typeof SettingsRoute
   StatsRoute: typeof StatsRoute
   TasksRoute: typeof TasksRoute
 }
@@ -105,6 +176,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reminders': {
+      id: '/reminders'
+      path: '/reminders'
+      fullPath: '/reminders'
+      preLoaderRoute: typeof RemindersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
@@ -112,11 +197,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home': {
       id: '/home'
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/help': {
+      id: '/help'
+      path: '/help'
+      fullPath: '/help'
+      preLoaderRoute: typeof HelpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/focus': {
@@ -139,11 +238,25 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FocusRoute: FocusRoute,
+  HelpRoute: HelpRoute,
   HomeRoute: HomeRoute,
+  LoginRoute: LoginRoute,
   ProfileRoute: ProfileRoute,
+  RemindersRoute: RemindersRoute,
+  SettingsRoute: SettingsRoute,
   StatsRoute: StatsRoute,
   TasksRoute: TasksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
