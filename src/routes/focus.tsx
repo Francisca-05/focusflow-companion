@@ -77,7 +77,7 @@ function Focus() {
           </div>
           <button
             onClick={() => setRunning((r) => !r)}
-            className="mt-10 px-10 py-3.5 bg-white text-primary font-semibold rounded-2xl shadow-xl active:scale-95 transition-transform"
+            className="hover-glow mt-10 px-10 py-3.5 bg-white text-primary font-semibold rounded-2xl shadow-xl active:scale-95 hover:scale-105 transition-transform animate-glow"
           >
             {seconds === 0 ? "Done" : running ? "Pause" : "Start Focus"}
           </button>

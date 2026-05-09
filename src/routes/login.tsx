@@ -90,7 +90,7 @@ function Login() {
           )}
           <button
             type="submit"
-            className="w-full bg-white text-primary font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform mt-2 animate-glow"
+            className="hover-glow w-full bg-white text-primary font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform mt-2 animate-glow"
           >
             {mode === "login" ? "Sign In" : "Sign Up"}
           </button>

@@ -73,15 +73,15 @@ function Tasks() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Add task"
-        className="absolute bottom-24 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 transition-transform z-40 animate-glow"
+        className="hover-glow absolute bottom-24 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 hover:rotate-90 transition-all duration-300 z-40 animate-glow"
       >
         <Plus className="h-6 w-6" strokeWidth={2.5} />
       </button>
       {open && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-end sm:items-center justify-center animate-fade-in" onClick={() => setOpen(false)}>
-          <div className="bg-card w-full sm:max-w-sm rounded-t-3xl sm:rounded-3xl p-6 space-y-4 animate-slide-up shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in overflow-y-auto" onClick={() => setOpen(false)}>
+          <div className="bg-card w-full sm:max-w-sm rounded-3xl p-6 space-y-4 animate-bounce-in shadow-2xl my-auto max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-bold">New Task</h3>
+              <h3 className="text-lg font-bold animate-slide-up">New Task</h3>
               <button onClick={() => setOpen(false)} className="press h-9 w-9 rounded-full bg-muted flex items-center justify-center"><X className="h-5 w-5" /></button>
             </div>
             <input
@@ -95,7 +95,7 @@ function Tasks() {
               <label className="text-xs text-muted-foreground">Duration: <span className="text-primary font-bold">{duration} min</span></label>
               <input type="range" min={5} max={120} step={5} value={duration} onChange={(e) => setDuration(+e.target.value)} className="w-full mt-2 accent-primary" />
             </div>
-            <button onClick={submit} className="w-full bg-gradient-button text-primary-foreground font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform">
+            <button onClick={submit} className="hover-glow w-full bg-gradient-button text-primary-foreground font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform">
               Add Task
             </button>
           </div>
