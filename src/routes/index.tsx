@@ -51,7 +51,7 @@ export function HomeScreen() {
           <p className="text-sm text-muted-foreground mt-1">Ready to Focus?</p>
         </header>
 
-        <div className="bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-6">
+        <div className="hover-glow bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-6 transition-all duration-300">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">Today's Focus</p>
           <h2 className="text-xl font-bold mt-2">{todayTask?.title ?? "No task scheduled"}</h2>
           <p className="text-sm text-muted-foreground mt-1">{todayTask ? `${todayTask.duration} min` : "Add a task to begin"}</p>
@@ -65,17 +65,17 @@ export function HomeScreen() {
 
         <h3 className="text-sm font-semibold text-foreground mb-3">Your Progress</h3>
         <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60">
+          <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 transition-all duration-300">
             <p className="text-xs text-muted-foreground">Focus Time</p>
             <p className="text-xl font-bold mt-2">{h}h {m}m</p>
           </div>
-          <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60">
+          <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 transition-all duration-300">
             <p className="text-xs text-muted-foreground">Tasks Completed</p>
             <p className="text-xl font-bold mt-2">{completed}</p>
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60 flex items-center justify-between">
+        <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 flex items-center justify-between transition-all duration-300">
           <div>
             <p className="text-xs text-muted-foreground flex items-center gap-1"><Flame className="h-3 w-3 text-primary" /> Focus Streak</p>
             <p className="text-xl font-bold mt-1">{streak} <span className="text-sm font-normal text-muted-foreground">days</span></p>

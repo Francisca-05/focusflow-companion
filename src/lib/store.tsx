@@ -122,11 +122,15 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const weeklyMinutes = useCallback(() => {
     const arr = [0, 0, 0, 0, 0, 0, 0];
     const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(now.getDate() - ((now.getDay() + 6) % 7));
     state.sessions.forEach((s) => {
       const d = new Date(s.date);
-      const diff = Math.floor((+now - +d) / 86400000);
+      d.setHours(0, 0, 0, 0);
+      const diff = Math.floor((+d - +startOfWeek) / 86400000);
       if (diff >= 0 && diff < 7) {
-        const idx = 6 - diff;
+        const idx = diff;
         arr[idx] += s.minutes;
       }
     });

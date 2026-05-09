@@ -48,7 +48,7 @@ function Stats() {
           ))}
         </div>
 
-        <div className="bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-4 relative">
+        <div className="hover-glow bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-4 relative transition-all duration-300">
           {totalMin === 0 && (
             <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xs text-muted-foreground pointer-events-none">
               No focus sessions yet — start one to see your week
@@ -61,7 +61,7 @@ function Stats() {
                 <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full">
                   <div className="relative w-full flex-1 rounded-lg bg-lavender/40 overflow-hidden flex items-end">
                     <div
-                      className="w-full rounded-lg bg-gradient-to-t from-primary to-primary-soft transition-all duration-700 ease-out"
+                      className={`w-full rounded-lg transition-all duration-700 ease-out ${v > 0 ? "bg-gradient-to-t from-primary to-primary-soft" : "bg-transparent"}`}
                       style={{ height: `${Math.max(pct, v > 0 ? 6 : 0)}%` }}
                     />
                   </div>
@@ -73,17 +73,17 @@ function Stats() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60">
+          <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 transition-all duration-300">
             <p className="text-xs text-muted-foreground">Focus Time</p>
             <p className="text-xl font-bold mt-2">{h}h {m}m</p>
           </div>
-          <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60">
+          <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 transition-all duration-300">
             <p className="text-xs text-muted-foreground">Tasks Completed</p>
             <p className="text-xl font-bold mt-2">{completed}</p>
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl p-4 shadow-soft border border-border/60">
+        <div className="hover-glow bg-card rounded-2xl p-4 shadow-soft border border-border/60 transition-all duration-300">
           <p className="text-xs text-muted-foreground">Top Focus Time</p>
           <p className="text-lg font-bold mt-2">{topHour}</p>
         </div>
