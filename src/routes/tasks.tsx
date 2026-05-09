@@ -73,7 +73,7 @@ function Tasks() {
       <button
         onClick={() => setOpen(true)}
         aria-label="Add task"
-        className="absolute bottom-24 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 transition-transform z-40 animate-glow"
+        className="hover-glow absolute bottom-24 right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 hover:rotate-90 transition-all duration-300 z-40 animate-glow"
       >
         <Plus className="h-6 w-6" strokeWidth={2.5} />
       </button>
