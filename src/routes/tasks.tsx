@@ -69,14 +69,14 @@ function Tasks() {
             ))
           )}
         </div>
+        <button
+          onClick={() => setOpen(true)}
+          aria-label="Add task"
+          className="hover-glow sticky bottom-4 ml-auto mt-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 hover:rotate-90 transition-all duration-300 z-40 animate-glow"
+        >
+          <Plus className="h-6 w-6" strokeWidth={2.5} />
+        </button>
       </div>
-      <button
-        onClick={() => setOpen(true)}
-        aria-label="Add task"
-        className="hover-glow absolute bottom-[6.75rem] right-6 h-14 w-14 rounded-full bg-gradient-button shadow-button text-primary-foreground flex items-center justify-center active:scale-90 hover:scale-110 hover:rotate-90 transition-all duration-300 z-40 animate-glow"
-      >
-        <Plus className="h-6 w-6" strokeWidth={2.5} />
-      </button>
       {open && (
         <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 animate-fade-in overflow-y-auto" onClick={() => setOpen(false)}>
           <div className="bg-card w-full sm:max-w-sm rounded-3xl p-6 space-y-4 animate-bounce-in shadow-2xl my-auto max-h-[85vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
