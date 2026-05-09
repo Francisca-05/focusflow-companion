@@ -57,7 +57,7 @@ export function HomeScreen() {
           <p className="text-sm text-muted-foreground mt-1">{todayTask ? `${todayTask.duration} min` : "Add a task to begin"}</p>
           <Link
             to="/focus"
-            className="mt-4 block w-full text-center bg-gradient-button text-primary-foreground font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform"
+            className="hover-glow mt-4 block w-full text-center bg-gradient-button text-primary-foreground font-semibold py-3.5 rounded-2xl shadow-button active:scale-[0.98] transition-transform"
           >
             Start Focus
           </Link>
