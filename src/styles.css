@@ -99,6 +99,18 @@
   * { border-color: var(--color-border); }
   html, body { background-color: var(--color-background); color: var(--color-foreground); -webkit-font-smoothing: antialiased; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif; }
+  @media (pointer: fine) {
+    html, body, * { cursor: none !important; }
+  }
+  /* Universal hover glow for interactive shapes */
+  @media (hover: hover) {
+    button:not(.no-glow):not(:disabled):hover,
+    a:not(.no-glow):hover,
+    [role="button"]:not(.no-glow):hover {
+      box-shadow: 0 0 0 1px oklch(0.7 0.25 300 / 0.35), 0 6px 30px -4px oklch(0.7 0.25 300 / 0.55), 0 0 60px -10px oklch(0.7 0.25 300 / 0.45);
+      transition: box-shadow 0.3s ease, transform 0.25s ease;
+    }
+  }
 }
 
 @layer utilities {

@@ -48,17 +48,27 @@ function Stats() {
           ))}
         </div>
 
-        <div className="bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-4">
+        <div className="bg-card rounded-3xl p-5 shadow-card border border-border/60 mb-4 relative">
+          {totalMin === 0 && (
+            <p className="absolute inset-x-0 top-1/2 -translate-y-1/2 text-center text-xs text-muted-foreground pointer-events-none">
+              No focus sessions yet — start one to see your week
+            </p>
+          )}
           <div className="h-44 flex items-end justify-between gap-2">
-            {data.map((v, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                <div
-                  className="w-full rounded-t-lg bg-gradient-to-t from-primary to-primary-soft transition-all"
-                  style={{ height: `${Math.max((v / max) * 100, 2)}%` }}
-                />
-                <span className="text-[10px] text-muted-foreground font-medium">{labels[i]}</span>
-              </div>
-            ))}
+            {data.map((v, i) => {
+              const pct = totalMin === 0 ? 0 : (v / max) * 100;
+              return (
+                <div key={i} className="flex-1 flex flex-col items-center gap-2 h-full">
+                  <div className="relative w-full flex-1 rounded-lg bg-lavender/40 overflow-hidden flex items-end">
+                    <div
+                      className="w-full rounded-lg bg-gradient-to-t from-primary to-primary-soft transition-all duration-700 ease-out"
+                      style={{ height: `${Math.max(pct, v > 0 ? 6 : 0)}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-semibold">{labels[i]}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 

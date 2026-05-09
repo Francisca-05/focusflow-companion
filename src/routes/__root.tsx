@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { StoreProvider } from "@/lib/store";
+import { CursorFollower } from "@/components/focusflow/CursorFollower";
 
 function NotFoundComponent() {
   return (
@@ -115,6 +116,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <StoreProvider>
+        <CursorFollower />
         <Outlet />
       </StoreProvider>
     </QueryClientProvider>
