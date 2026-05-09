@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { MobileFrame } from "@/components/focusflow/MobileFrame";
 import { BottomNav } from "@/components/focusflow/BottomNav";
 import { Flame } from "lucide-react";
@@ -37,12 +37,11 @@ export function HomeScreen() {
   const m = mins % 60;
   const completed = tasks.filter((t) => t.done).length;
   const todayTask = tasks.find((t) => !t.done);
-  const greeting = (() => {
-    const h = new Date().getHours();
-    if (h < 12) return "Good morning";
-    if (h < 18) return "Good afternoon";
-    return "Good evening";
-  })();
+  const [greeting, setGreeting] = useState("Hello");
+  useEffect(() => {
+    const hr = new Date().getHours();
+    setGreeting(hr < 12 ? "Good morning" : hr < 18 ? "Good afternoon" : "Good evening");
+  }, []);
   const dots = Math.min(streak, 5);
   return (
     <MobileFrame>
